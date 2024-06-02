@@ -16,8 +16,7 @@ class AdminLoginController extends Controller
 
     public function login(Request $request)
     {
-
-        $admin = User::find(1); //assuming there is only 1 admin
+        $admin = User::find(1); //je predpokladany jen jeden admin s id = 1
         if((Hash::check($request->password, $admin->password)))
         {
             auth()->login($admin);
@@ -26,13 +25,11 @@ class AdminLoginController extends Controller
 
         else
         return back()->with('password_status','špatný heslo :(');
-
     }
 
     public function logout()
     {
         auth()->logout();
         return redirect()->route('home');
-
     }
 }

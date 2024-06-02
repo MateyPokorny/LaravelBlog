@@ -103,15 +103,15 @@ class PostsController extends Controller
         ]);
 
         $post = Post::find($id);
+        $post_img_record = Post::find($id)->image;
 
-        $postImgRecord = Post::find($id)->image;
-
+        //updatujeme nahledový obrázek postu
         if($request-> image != null)
         {
-            $postImgPath = $postImgRecord->path;
+            $post_img_path = $post_img_record->path;
 
-            Storage::delete($postImgPath);
-            $postImgRecord->delete();
+            Storage::delete($post_img_path);
+            $post_img_path->delete();
 
             $image_path = $request->file('image')->store('/public');
             $extension = explode('/', $image_path); //dostane poslední řetězec za /     ...(jméno obrazku)

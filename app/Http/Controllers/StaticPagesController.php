@@ -10,12 +10,19 @@ use Illuminate\Http\Request;
 
 class StaticPagesController extends Controller
 {
+    // Je predpokladana jen jedna staticka "about" stranka s id = 1
 
     public function index()
     {
         $about_page = DB::table('static_pages')->where('id','=',1)->first();
-        return view('admin.static.edit_about',['page' => $about_page]);
+        return view('home.about',['page' => $about_page->content]);
+    }
 
+    //formular pro edit
+    public function edit()
+    {
+        $about_page = DB::table('static_pages')->where('id','=',1)->first();
+        return view('admin.static.edit_about',['page' => $about_page]);
     }
 
     public function update(Request $request)
@@ -30,6 +37,5 @@ class StaticPagesController extends Controller
         $about_page -> save();
 
         return redirect()->route('dashboard');
-
     }
 }
